@@ -1,4 +1,6 @@
-
+/**
+* 说明：在使用使用驱动程序（加载驱动模块）之前，需要先加载此设备模块
+**/
 #include <linux/kernel.h>
 #include <linux/device.h>
 #include <linux/module.h>
@@ -24,7 +26,7 @@
 
 
 struct platform_device memory_dev = {
- .name   = "dev_mem", 
+ .name   = "dev_mem", //设备名称，驱动名称和设备名称需要相同
  .id    = -1,
  .dev = 
 	 {
@@ -34,14 +36,14 @@ struct platform_device memory_dev = {
   
 static int __init memory_dev_init(void)
 {
-    platform_device_register(&memory_dev);
+    platform_device_register(&memory_dev); //使用platform提供的函数来注册设备
 
     return 0;
 }
 
 static void __exit memory_dev_exit(void)
 {
-    platform_device_unregister(&memory_dev);
+    platform_device_unregister(&memory_dev); //使用platform提供的函数来注销设备
 }
 
 module_init(memory_dev_init);
